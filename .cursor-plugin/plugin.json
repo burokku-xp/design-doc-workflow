@@ -1,0 +1,35 @@
+{
+  "name": "design-doc-workflow",
+  "version": "0.2.3",
+  "description": "Human-first detailed design documents with MCP-powered GitHub handoff, clean-code implementation, Playwright testing, and proactive workflow skill routing for React + Java Spring Boot projects.",
+  "author": {
+    "name": "Design Doc Workflow"
+  },
+  "license": "MIT",
+  "keywords": [
+    "design-doc",
+    "詳細設計書",
+    "spec",
+    "requirements",
+    "react",
+    "java",
+    "spring-boot",
+    "workflow",
+    "github",
+    "playwright",
+    "mcp",
+    "workflow-router"
+  ],
+  "logo": "assets/logo.svg",
+  "variables": {
+    "type": "object",
+    "properties": {
+      "GITHUB_PAT": {
+        "type": "string",
+        "title": "GitHub Personal Access Token",
+        "description": "PAT with repo scope for GitHub MCP (Issue/PR creation). Set in Plugins → Configure."
+      }
+    },
+    "required": ["GITHUB_PAT"]
+  }
+}
