@@ -1,0 +1,49 @@
+---
+description: Write readable, maintainable code that AI and humans can understand. Applies during implementation from design docs.
+globs:
+  - "**/*.{java,ts,tsx,js,jsx}"
+alwaysApply: true
+---
+
+# Clean Code Rules
+
+AI-generated code must be **easy to read and maintain**, not clever.
+
+## General
+
+- One file, one primary responsibility
+- Functions do one thing; keep them short
+- Names reveal intent (avoid abbreviations unless domain-standard)
+- No magic numbers — use named constants
+- Avoid deep nesting (prefer early returns)
+- Do not over-abstract; no one-off helpers
+- Reference design IDs in comments, test names, or commit messages (REQ-, API-, SCR-, CMP-, TST-)
+
+## Java (Spring Boot)
+
+- **Controller**: HTTP only — no business logic
+- **Service**: business rules and orchestration — `@Transactional` here
+- **Repository**: data access only
+- **DTO**: request/response shapes — no entity exposure in API
+- Package by feature: `feature.<feature-id>.controller|service|repository|dto|entity`
+- Exceptions map to HTTP status per design doc error tables
+
+## React (TypeScript)
+
+- Split by `components.md` units — one component file per CMP-ID when practical
+- Props interfaces named after component; keep props minimal
+- Colocate styles only if project convention allows; otherwise follow existing pattern
+- Screen components compose feature components; pages handle routing only
+- Loading / error / empty states match `screens.md` state tables
+
+## Tests
+
+- Frontend: Playwright only — file names include TST-ID or CMP-ID
+- Backend: JUnit — test method names describe scenario in plain language
+- Each TST-ID in `tests.md` maps to at least one automated test
+
+## Do not
+
+- Copy design doc prose into code comments
+- Edit `docs/design/` to match implementation
+- Add frameworks or patterns not implied by design or existing codebase

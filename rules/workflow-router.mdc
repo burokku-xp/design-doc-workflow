@@ -1,0 +1,59 @@
+---
+description: Proactively detect design-doc-workflow phase and suggest the appropriate skill when the user is not already using it. Run state check when design, implementation, or testing context appears.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Workflow Router (Proactive Skill Suggestions)
+
+When the user works in a repo with **design-doc-workflow** (especially `docs/design/`), check their **workflow phase** and suggest the matching skill if they are not already using it.
+
+## When to check
+
+- Conversation starts and repo has `docs/design/` or user mentions 設計書 / 実装 / テスト / Issue / PR
+- User asks 次何する, 続き, 何から, 状態
+- User's action clearly belongs to a phase but no workflow skill is active
+
+**Skip** if user already invoked the correct skill, or already declined the same suggestion.
+
+## How to check (lightweight)
+
+1. Read `docs/design/*/manifest.yaml` if present (status, features)
+2. `git branch --show-current` — `design/*` → design phase, `feat/*` → implement
+3. Optional: run `skills/workflow-router/scripts/detect-state.sh`
+4. Optional: GitHub MCP / `gh` for open PRs and issues
+
+## Phase → suggest skill
+
+| Phase | Suggest |
+|-------|---------|
+| No design yet | `design-doc` |
+| Designing (draft) | `design-doc` |
+| Design ready for review | `design-to-pr` |
+| Design approved, no issues | `design-to-issues` |
+| Implementing (Issue / feat branch) | `impl-from-design` |
+| feat PR open | `impl-review` (+ subscribe for CI/review) |
+| Impl done, tests missing | `e2e-from-design` |
+
+Full logic: `skills/workflow-router/SKILL.md`
+
+## How to suggest
+
+Add a **short** block at the end (1 skill + 1 example prompt). Do not block the user's task.
+
+```markdown
+---
+**ワークフロー提案**（推定: 実装フェーズ）
+→ `impl-from-design スキルで Issue #123 を実装して`
+```
+
+Also mention when relevant:
+- **context7-mcp** — library docs during implementation
+- **subscribe** — after PR push, wait for CI/review
+
+## Do not
+
+- Repeat declined suggestions
+- Auto-run skills without user consent
+- Override explicit user instructions

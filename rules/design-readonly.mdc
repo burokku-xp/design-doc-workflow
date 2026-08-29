@@ -1,0 +1,54 @@
+---
+description: Design documents under docs/design/ are read-only during implementation unless the user explicitly requests a minor adjustment in the same feat PR. AI must never auto-update design docs.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Design Document Rules
+
+## Default: read-only during implementation
+
+- `docs/design/` is **read-only** while implementing — do **not** auto-update to match code.
+- Do **not** edit design docs without explicit user request.
+
+## Minor adjustments (same feat PR — no separate design PR)
+
+When the user **explicitly** asks to adjust spec during implementation:
+
+- Update **only** the affected tables/lines in `docs/design/`
+- Commit in the **same `feat/` branch** as the code change
+- Add a **仕様調整** section to the implementation PR body
+- REQ-ID must **not** change (interpretation/clarification only)
+
+Examples of minor adjustments:
+- Error message wording, validation thresholds, labels
+- State table clarifications, BR rule wording
+
+**Not minor** — use separate design PR or new Issue:
+- New REQ-ID, API path/method change, screen flow change, new tables/endpoints
+
+## When spec and code diverge (without user-approved adjustment)
+
+1. Comment on the implementation Issue describing the gap.
+2. Do **not** silently change code or design.
+3. Wait for user direction: minor adjustment (same feat PR) or major change (design PR).
+
+## During implementation
+
+- Read design docs for scope, APIs, screens, layers, flows, and tests.
+- Derive code from tables and diagrams — do not expect code in design docs.
+- Reference traceability IDs (REQ-, API-, SCR-, CMP-, TST-) in commits and PR descriptions.
+
+## Allowed design doc edits
+
+| Trigger | How |
+|---------|-----|
+| New design / design phase | `design-doc` skill → `design-to-pr` |
+| Minor adjustment during impl | User explicit request → same feat PR |
+| Major spec change | `design-doc` + separate design PR |
+
+## Stack context
+
+- Frontend: React + TypeScript
+- Backend: Java Spring Boot, MVC (Controller / Service / Repository)
