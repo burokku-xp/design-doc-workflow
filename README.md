@@ -2,6 +2,8 @@
 
 人間が把握しやすい**詳細設計書**（表・図中心）を作成し、MCP 連携で設計 PR → 実装 Issue → きれいなコード実装 → レビュー → Playwright テストへつなぐ Cursor Plugin です。
 
+**リポジトリ:** https://github.com/burokku-xp/design-doc-workflow
+
 > **ステータス:** v0.2.3 — Cursor Marketplace 公開を想定
 
 ## インストール
@@ -52,7 +54,8 @@ Customize → スコープを **そのプロジェクト名** に切替して確
 
 ### その他
 
-1. **Git リポジトリから** — Cursor → Plugins → Add from Git → **Install 時に User を選択**
+1. **Git リポジトリから（推奨）** — https://github.com/burokku-xp/design-doc-workflow  
+   Cursor → **Plugins → Add from Git** → 上記 URL → **Install 時に User を選択**
 2. **ZIP 生成** — `bash scripts/package-plugin.sh` → `dist/design-doc-workflow-<version>.zip`
 
 ### パッケージ生成
