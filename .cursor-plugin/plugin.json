@@ -6,6 +6,8 @@
     "name": "Design Doc Workflow"
   },
   "license": "MIT",
+  "repository": "https://github.com/burokku-xp/design-doc-workflow",
+  "homepage": "https://github.com/burokku-xp/design-doc-workflow#readme",
   "keywords": [
     "design-doc",
     "詳細設計書",
