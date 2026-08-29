@@ -26,10 +26,13 @@ Part of **design-doc-workflow** plugin. See [../_shared/workflow-integrations.md
 Run state script (locate script before running):
 
 ```bash
-# 1) Repo root (plugin cloned or copied into project)
-SCRIPT="skills/workflow-router/scripts/detect-state.sh"
+# Project repo (.cursor/ committed — Cloud Agent / mobile)
+SCRIPT=".cursor/skills/workflow-router/scripts/detect-state.sh"
 
-# 2) Plugin install path (Cursor Plugins)
+# Plugin repo or plugin install path
+if [[ ! -f "$SCRIPT" ]]; then
+  SCRIPT="skills/workflow-router/scripts/detect-state.sh"
+fi
 if [[ ! -f "$SCRIPT" ]]; then
   SCRIPT=$(find "${HOME}/.cursor" -path '*/skills/workflow-router/scripts/detect-state.sh' 2>/dev/null | head -1)
 fi

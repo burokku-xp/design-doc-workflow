@@ -105,6 +105,16 @@ powershell -ExecutionPolicy Bypass -File scripts/bootstrap-project.ps1 C:\path\t
 
 Downloads からフォルダ追加すると「Added 1 plugin」と出ても、**別プロジェクトでは Skills/Rules が読まれない**ことがあります。上記 `install-to-cursor-local` か Customize の **User スコープ Install** を使ってください。
 
+### Cloud Agent / モバイル / Web
+
+Plugin は Cloud VM にコピーされません。**アプリ repo の `.cursor/` に Skills をコミット**してください。
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/burokku-xp/design-doc-workflow/main/scripts/install-into-project.sh | bash
+```
+
+詳細: [docs/cloud-agent.md](../docs/cloud-agent.md)
+
 ### 確認手順
 
 1. `bash scripts/validate-plugin.sh`

@@ -1,5 +1,4 @@
-# Copy plugin rules/skills/commands into a target project's .cursor/ (project-scoped fallback).
-# Usage: powershell -ExecutionPolicy Bypass -File scripts/bootstrap-project.ps1 C:\path\to\project
+# Copy plugin rules/skills/commands into a target project's .cursor/ (Cloud Agent + project scope).
 param(
   [Parameter(Mandatory = $true)]
   [string]$ProjectPath
@@ -21,7 +20,7 @@ New-Item -ItemType Directory -Path $Rules, $Skills, $Commands -Force | Out-Null
 
 Copy-Item (Join-Path $Root "rules\*.mdc") $Rules -Force
 
-Get-ChildItem (Join-Path $Root "skills") -Directory | Where-Object { $_.Name -ne "_shared" } | ForEach-Object {
+Get-ChildItem (Join-Path $Root "skills") -Directory | ForEach-Object {
   $dest = Join-Path $Skills $_.Name
   if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
   Copy-Item $_.FullName $dest -Recurse -Force
@@ -29,12 +28,25 @@ Get-ChildItem (Join-Path $Root "skills") -Directory | Where-Object { $_.Name -ne
 
 Copy-Item (Join-Path $Root "commands\*.md") $Commands -Force
 
-$version = (Get-Content (Join-Path $Root ".cursor-plugin\plugin.json") | ConvertFrom-Json).version
+$manifest = Get-Content (Join-Path $Root ".cursor-plugin\plugin.json") | ConvertFrom-Json
+$version = $manifest.version
+$repo = if ($manifest.repository) { $manifest.repository } else { "https://github.com/burokku-xp/design-doc-workflow" }
+
 @"
-# Installed from design-doc-workflow plugin bootstrap
 version=$version
-source=$Root
+source=$repo
+installed_by=bootstrap-project.ps1
 "@ | Set-Content (Join-Path $Cursor "design-doc-workflow.version")
 
+@"
+# design-doc-workflow (project-local)
+
+Committed for Cursor Cloud Agent, mobile, and Web.
+
+- Skills: ``.cursor/skills/`` (7)
+- Rules: ``.cursor/rules/`` (3)
+- Docs: https://github.com/burokku-xp/design-doc-workflow/blob/main/docs/cloud-agent.md
+"@ | Set-Content (Join-Path $Cursor "README.md")
+
 Write-Host "Bootstrapped .cursor/ in: $ProjectPath"
-Write-Host "Open project in Cursor -> Customize -> select this project scope"
+Write-Host "Next: git add .cursor && git commit && git push  (required for Cloud Agent)"

@@ -1,6 +1,6 @@
 {
   "name": "design-doc-workflow",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Human-first detailed design documents with MCP-powered GitHub handoff, clean-code implementation, Playwright testing, and proactive workflow skill routing for React + Java Spring Boot projects.",
   "author": {
     "name": "Design Doc Workflow"

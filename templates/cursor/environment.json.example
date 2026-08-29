@@ -1,0 +1,10 @@
+{
+  "name": "design-doc-workflow-app",
+  "install": "echo 'Add your project install command here, e.g. npm ci && mvn -q -DskipTests package'",
+  "terminals": [],
+  "mcpServerAllowlist": [
+    {
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  ]
+}

@@ -4,13 +4,27 @@
 
 **リポジトリ:** https://github.com/burokku-xp/design-doc-workflow
 
-> **ステータス:** v0.2.3 — Cursor Marketplace 公開を想定
+> **Cloud / モバイル:** Plugin だけでは Cloud Agent に載りません。**[Cloud セットアップ](docs/cloud-agent.md)** 参照 → プロジェクトに `.cursor/` をコミット
+
+> **ステータス:** v0.2.4 — Cursor Marketplace 公開を想定
 
 ## インストール
 
 ### 重要: 別プロジェクトでも使うには
 
 **Downloads から「Add from folder」だけだと、そのフォルダに紐づくだけで別プロジェクトでは Skills/Rules が出ません。**
+
+| 使う場所 | 方法 |
+|----------|------|
+| **PC（全プロジェクト）** | User スコープ Install または `install-to-cursor-local.ps1` |
+| **Cloud Agent / スマホ / Web** | アプリ repo に `.cursor/` を **コミット** → [docs/cloud-agent.md](docs/cloud-agent.md) |
+
+Cloud 向けワンライナー（アプリ repo ルートで）:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/burokku-xp/design-doc-workflow/main/scripts/install-into-project.sh | bash
+git add .cursor && git commit -m "chore: add design-doc-workflow for Cloud Agent" && git push
+```
 
 全プロジェクトで使うには **User スコープ** で入れてください。
 
