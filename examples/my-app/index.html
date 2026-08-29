@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my-app 詳細設計書</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root { --border: #ddd; --bg: #f9f9f9; --accent: #2563eb; }
+    body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
+    h1, h2, h3 { line-height: 1.3; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.95rem; }
+    th, td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+    th { background: var(--bg); }
+    .feature-card { border: 1px solid var(--border); padding: 1.25rem; margin: 1rem 0; border-radius: 8px; }
+    .status { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.85rem; }
+    .status-draft { background: #f3f4f6; color: #6b7280; }
+    nav a { margin-right: 1rem; color: var(--accent); }
+    .mermaid { margin: 1.5rem 0; }
+    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>my-app 詳細設計書</h1>
+  <p>ステータス: <span class="status status-draft">draft</span></p>
+
+  <nav>
+    <strong>プロジェクト横断:</strong>
+    <a href="00-project/overview.md">概要</a>
+    <a href="00-project/architecture.md">アーキテクチャ</a>
+    <a href="00-project/feature-map.md">機能マップ</a>
+    <a href="00-project/conventions.md">規約</a>
+  </nav>
+
+  <h2>機能一覧</h2>
+
+  <div class="feature-card">
+    <h3>user-auth — ユーザー認証 <span class="status status-draft">draft</span></h3>
+    <p>メールアドレスとパスワードでログインし、ダッシュボードへ遷移する。</p>
+    <table>
+      <tr><th>章</th><th>リンク</th></tr>
+      <tr><td>サマリ</td><td><a href="features/user-auth/README.md">README</a></td></tr>
+      <tr><td>機能設計</td><td><a href="features/user-auth/functional.md">functional.md</a></td></tr>
+      <tr><td>API</td><td><a href="features/user-auth/api.md">api.md</a></td></tr>
+      <tr><td>層設計</td><td><a href="features/user-auth/layers.md">layers.md</a></td></tr>
+      <tr><td>DB</td><td><a href="features/user-auth/db.md">db.md</a></td></tr>
+      <tr><td>画面</td><td><a href="features/user-auth/screens.md">screens.md</a></td></tr>
+      <tr><td>コンポーネント</td><td><a href="features/user-auth/components.md">components.md</a></td></tr>
+      <tr><td>フロー</td><td><a href="features/user-auth/flows.md">flows.md</a></td></tr>
+      <tr><td>テスト</td><td><a href="features/user-auth/tests.md">tests.md</a></td></tr>
+    </table>
+  </div>
+
+  <h2>機能マップ</h2>
+  <pre class="mermaid">
+flowchart TD
+  userAuth[user-auth ユーザー認証]
+  </pre>
+
+  <h2>トレーサビリティ</h2>
+  <table>
+    <tr>
+      <th>REQ-ID</th><th>要件</th><th>API</th><th>画面</th><th>コンポーネント</th><th>テスト</th>
+    </tr>
+    <tr>
+      <td>REQ-AUTH-001</td>
+      <td>メールでログインできる</td>
+      <td>API-AUTH-001</td>
+      <td>SCR-AUTH-001</td>
+      <td>CMP-AUTH-001</td>
+      <td>TST-AUTH-001</td>
+    </tr>
+    <tr>
+      <td>REQ-AUTH-002</td>
+      <td>誤った認証情報でエラー表示</td>
+      <td>API-AUTH-001</td>
+      <td>SCR-AUTH-001</td>
+      <td>CMP-AUTH-001</td>
+      <td>TST-AUTH-002</td>
+    </tr>
+  </table>
+
+  <h2>ワークフロー</h2>
+  <ol>
+    <li><code>design-doc</code> スキルで設計書を作成・更新</li>
+    <li>人間がレビュー後、<code>design-to-pr</code> で設計PRを作成</li>
+    <li>マージ後、<code>design-to-issues</code> で実装Issueを作成</li>
+    <li>Issueから Cloud Agent で実装（設計書は読み取り専用）</li>
+  </ol>
+
+  <footer>
+    設計書は表・図中心。コードレベルの詳細は含めない。実装時に AI が設計書を自動更新しない。
+  </footer>
+
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</body>
+</html>

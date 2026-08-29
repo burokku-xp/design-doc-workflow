@@ -1,0 +1,34 @@
+project: my-app
+title: My Application
+status: draft
+
+features:
+  - id: user-auth
+    title: ユーザー認証
+    status: draft
+    depends_on: []
+    docs:
+      readme: features/user-auth/README.md
+      functional: features/user-auth/functional.md
+      api: features/user-auth/api.md
+      layers: features/user-auth/layers.md
+      db: features/user-auth/db.md
+      screens: features/user-auth/screens.md
+      components: features/user-auth/components.md
+      flows: features/user-auth/flows.md
+      tests: features/user-auth/tests.md
+    requirements:
+      - id: REQ-AUTH-001
+        title: メールアドレスでログインできる
+        acceptance: features/user-auth/functional.md#req-auth-001
+        apis: [API-AUTH-001]
+        screens: [SCR-AUTH-001]
+        components: [CMP-AUTH-001]
+        tests: [TST-AUTH-001]
+      - id: REQ-AUTH-002
+        title: 誤った認証情報でエラーが表示される
+        acceptance: features/user-auth/functional.md#req-auth-002
+        apis: [API-AUTH-001]
+        screens: [SCR-AUTH-001]
+        components: [CMP-AUTH-001]
+        tests: [TST-AUTH-002]
